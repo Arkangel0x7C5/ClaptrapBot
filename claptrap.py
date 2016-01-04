@@ -9,9 +9,9 @@ bot = telepot.Bot(conf.botID)
 botName = bot.getMe()['username']
 frases = ["no tengo frases, que planeas que diga?"]
 
-holaRegex   = re.compile('^\/hola(@'+botname+')? *$')
-timeRegex   = re.compile('^\/time(@'+botname+')? *$')
-sourceRegex = re.compile('^\/source(@'+botname+')? *$')
+holaRegex   = re.compile('^\/hola(@'+botName+')? *$')
+timeRegex   = re.compile('^\/time(@'+botName+')? *$')
+sourceRegex = re.compile('^\/source(@'+botName+')? *$')
 
 def handle(msg):
 	chat_id = msg['chat']['id']
