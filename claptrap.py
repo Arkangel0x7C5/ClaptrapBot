@@ -6,10 +6,12 @@ import conf
 import commands
 
 bot = telepot.Bot(conf.botID)
+botName = bot.getMe()['username']
 frases = ["no tengo frases, que planeas que diga?"]
-holaRegex = re.compile('^\/hola(@claptrap_hsec_bot)? *$')
-timeRegex = re.compile('^\/time(@claptrap_hsec_bot)? *$')
 
+holaRegex   = re.compile('^\/hola(@'+botname+')? *$')
+timeRegex   = re.compile('^\/time(@'+botname+')? *$')
+sourceRegex = re.compile('^\/source(@'+botname+')? *$')
 
 def handle(msg):
 	chat_id = msg['chat']['id']
@@ -19,6 +21,9 @@ def handle(msg):
 		bot.sendMessage(chat_id,str(datetime.datetime.now()))
 	elif holaRegex.match(command):
 		bot.sendMessage(chat_id,frases[0])
+	elif sourceRegex.match(command):
+		bot.sendMessage(chat_id,source)
+		
 
 bot.notifyOnMessage(handle)
 
