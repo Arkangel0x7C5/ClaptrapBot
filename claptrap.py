@@ -22,7 +22,7 @@ def handle(msg):
 	elif holaRegex.match(command):
 		bot.sendMessage(chat_id,frases[0])
 	elif sourceRegex.match(command):
-		bot.sendMessage(chat_id,source)
+		bot.sendMessage(chat_id,conf.source)
 		
 
 bot.notifyOnMessage(handle)
