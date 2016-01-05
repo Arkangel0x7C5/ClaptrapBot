@@ -14,6 +14,8 @@ timeRegex   = re.compile('^\/time(@'+botName+')? *$')
 sourceRegex = re.compile('^\/source(@'+botName+')? *$')
 
 def handle(msg):
+	if !msg.has_key("text") && !msg.has_key("chat"):
+		return
 	chat_id = msg['chat']['id']
 	command = msg['text']
 	print 'Mensage recibido: %s' % command
