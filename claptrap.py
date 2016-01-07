@@ -5,6 +5,17 @@ import re
 import conf
 import commands
 
+#######
+# BTC #
+#######
+import request
+
+urlbtc = 'https://blockchain.info/es/q/'
+
+def btcPrice():
+	r = requests.get(urlbtc + "24hrprice")
+	return r.text
+
 bot = telepot.Bot(conf.botID)
 botName = bot.getMe()['username']
 frases = ["no tengo frases, que planeas que diga?"]
@@ -12,6 +23,10 @@ frases = ["no tengo frases, que planeas que diga?"]
 holaRegex   = re.compile('^\/hola(@'+botName+')? *$')
 timeRegex   = re.compile('^\/time(@'+botName+')? *$')
 sourceRegex = re.compile('^\/source(@'+botName+')? *$')
+
+#peke
+btcPriceRegex = re.compile('\/btcPrice(@'+botName+')? *$')
+
 
 def handle(msg):
 	if not msg.has_key("text") and not msg.has_key("chat"):
@@ -25,7 +40,8 @@ def handle(msg):
 		bot.sendMessage(chat_id,frases[0])
 	elif sourceRegex.match(command):
 		bot.sendMessage(chat_id,conf.source)
-		
+	elif btcPriceRegex.match(command):
+		bot.sendMessage(chat_id,btcPrice())		
 
 bot.notifyOnMessage(handle)
 
