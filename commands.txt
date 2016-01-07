@@ -1,3 +1,4 @@
 hola - Contesta con una frase aleatoria de su repertorio
 time - Dice la fecha/hora
 source - Muestra la url al codigo fuente
+btcPrice - Precio del btc 
