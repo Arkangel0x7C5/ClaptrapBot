@@ -8,13 +8,13 @@ import commands
 #######
 # BTC #
 #######
-import request
+import urllib2
 
 urlbtc = 'https://blockchain.info/es/q/'
 
 def btcPrice():
-	r = requests.get(urlbtc + "24hrprice")
-	return r.text
+	r = urllib2.urlopen(urlbtc + "24hrprice")
+	return r.read()
 
 bot = telepot.Bot(conf.botID)
 botName = bot.getMe()['username']
@@ -23,8 +23,6 @@ frases = ["no tengo frases, que planeas que diga?"]
 holaRegex   = re.compile('^\/hola(@'+botName+')? *$')
 timeRegex   = re.compile('^\/time(@'+botName+')? *$')
 sourceRegex = re.compile('^\/source(@'+botName+')? *$')
-
-#peke
 btcPriceRegex = re.compile('\/btcPrice(@'+botName+')? *$')
 
 
