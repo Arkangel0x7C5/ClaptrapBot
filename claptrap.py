@@ -1,6 +1,5 @@
 import time
 import telepot
-import datetime
 import re
 import conf
 import commands
@@ -13,13 +12,8 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 logging.basicConfig(filename='debug.log',level=logging.DEBUG)
 bot = telepot.Bot(conf.botID)
-botName = bot.getMe()['username']
-frases = ["no tengo frases, que planeas que diga?"]
 
-holaRegex   = re.compile('^\/hola(@'+botName+')? *$')
-timeRegex   = re.compile('^\/time(@'+botName+')? *$')
-sourceRegex = re.compile('^\/source(@'+botName+')? *$')
-btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
+commands.init(bot.getMe()['username'])
 
 
 def handle(msg):
@@ -27,17 +21,14 @@ def handle(msg):
 	if not msg.has_key("text") and not msg.has_key("chat"):
 		return
 	chat_id = msg['chat']['id']
-	command = msg['text']
-	print 'Mensage recibido: %s' % command
-	if timeRegex.match(command):
-		bot.sendMessage(chat_id,str(datetime.datetime.now()))
-	elif holaRegex.match(command):
-		bot.sendMessage(chat_id,frases[0])
-	elif sourceRegex.match(command):
-		bot.sendMessage(chat_id,conf.source)
-	elif btcPriceRegex.match(command):
-		#bot.sendMessage(chat_id,btcPrice())
-		bot.sendMessage(chat_id,commands.btcPrice())
+	text	= msg['text']
+	
+	print 'Mensage recibido: %s' % text
+	
+	for comando in commands.list:
+		if comando[0].match(text):
+			bot.sendMessage(chat_id,comando[1]())
+			return
 
 bot.notifyOnMessage(handle)
 
