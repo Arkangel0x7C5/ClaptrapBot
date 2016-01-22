@@ -1,5 +1,5 @@
 import datetime
-import urllib2
+from urllib.request import urlopen
 import re
 import conf
 
@@ -16,18 +16,16 @@ def cmdSource():
 	return conf.source
 
 def cmdBtcPrice():
-	r = urllib2.urlopen(urlbtc + "24hrprice")
+	r = urlopen(urlbtc + "24hrprice")
 	return r.read()
 
 def init(botName):
-        holaRegex   = re.compile('^\/hola(@'+botName+')? *$')
-        timeRegex   = re.compile('^\/time(@'+botName+')? *$')
-        sourceRegex = re.compile('^\/source(@'+botName+')? *$')
-        btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
+	holaRegex   = re.compile('^(hola|\/(hola|hello))(@'+botName+')? *$')
+	timeRegex   = re.compile('^\/(fecha|time)(@'+botName+')? *$')
+	sourceRegex = re.compile('^\/(codigo|source)(@'+botName+')? *$')
+	btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
 	
-	print botName
-		
-	list.extend(	 [
+	list.extend(	[
 			[holaRegex,cmdHola]
 			,[timeRegex,cmdTime]
 			,[sourceRegex,cmdSource]
