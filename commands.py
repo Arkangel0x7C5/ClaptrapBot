@@ -25,6 +25,7 @@ def init(botName):
         sourceRegex = re.compile('^\/source(@'+botName+')? *$')
         btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
 	
+	print botName
 		
 	list.extend(	 [
 			[holaRegex,cmdHola]
