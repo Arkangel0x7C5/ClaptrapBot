@@ -23,6 +23,10 @@ def init(botName):
 	holaRegex   = re.compile('^(hola|\/(hola|hello))(@'+botName+')? *$')
 	timeRegex   = re.compile('^\/(fecha|time)(@'+botName+')? *$')
 	sourceRegex = re.compile('^\/(codigo|source)(@'+botName+')? *$')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 62dfffa88f8b1b88a5f024c87de98d9a275554da
 	btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
 	
 	list.extend(	[
