@@ -30,7 +30,4 @@ def handle(msg):
 			bot.sendMessage(chat_id,comando[1]())
 			return
 
-bot.notifyOnMessage(handle)
-
-while 1:
-	time.sleep(10)
+bot.notifyOnMessage(callback=handle, run_forever=True)
