@@ -20,9 +20,9 @@ def cmdBtcPrice():
 	return r.read()
 
 def init(botName):
-	holaRegex   = re.compile('^\/hola(@'+botName+')? *$')
-	timeRegex   = re.compile('^\/time(@'+botName+')? *$')
-	sourceRegex = re.compile('^\/source(@'+botName+')? *$')
+	holaRegex   = re.compile('^\/(hola|hello)(@'+botName+')? *$')
+	timeRegex   = re.compile('^\/(fecha|time)(@'+botName+')? *$')
+	sourceRegex = re.compile('^\/(codigo|source)(@'+botName+')? *$')
         btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
 	
 	print botName
