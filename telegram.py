@@ -3,6 +3,7 @@
 import json
 import urllib
 import time
+import logging
 
 class Bot():
 	def __init__(self,
@@ -34,10 +35,16 @@ class Bot():
 	def startPolling(self,handler):
 		try:
 			while(True):
-				for update in self.getUpdates():
-					self.offset = update['update_id']+1
-					handler(self,update['message'])
+				try:
+					for update in self.getUpdates():
+						self.offset = update['update_id']+1
+						if 'message' in update :
+							handler(self,update['message'])
+				except IOError:
+					pass
 				time.sleep(1)
 		except KeyboardInterrupt:
 			print "Interrupcion de teclado"
+		except Exception as e:
+			logging.exception(e)
 		return
