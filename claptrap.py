@@ -21,13 +21,12 @@ commands.init(bot.getMe()['username'])
 def handle(bot,msg):
 	logging.debug(json.dumps(msg)+"\n")
 	#if not msg.has_key("text") and not msg.has_key("chat"):
-	try:
-	
+	try:	
 		#logging.debug("test\n")
 		chat_id = msg['chat']['id']
 		text	= msg['text']
 	
-		print("Mensaje recibido: "+ text)
+		logging.info("Mensaje recibido: "+ text)
 	
 		for comando in commands.list:
 			if comando[0].match(text):

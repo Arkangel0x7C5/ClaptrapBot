@@ -41,12 +41,12 @@ class Bot():
 						self.offset = update['update_id']+1
 						if 'message' in update :
 							handler(self,update['message'])
-				except IOError:
-					pass
+				except IOError as e:
+					logging.debug(e)
 				time.sleep(1)
 		except KeyboardInterrupt:
-			print("Interrupcion de teclado")
+			#print("Interrupcion de teclado")
+			pass
 		except Exception as e:
-			logging.exception(e)
-			
+			logging.debug(e)
 		return
