@@ -1,5 +1,5 @@
 import datetime
-import urllib
+from urllib import request
 import re
 import conf
 
@@ -16,14 +16,13 @@ def cmdSource():
 	return conf.source
 
 def cmdBtcPrice():
-	r = urllib.urlopen(urlbtc + "24hrprice")
+	r = request.urlopen(urlbtc + "24hrprice")
 	return r.read()
 
 def init(botName):
 	holaRegex   = re.compile('^(hola|\/(hola|hello))(@'+botName+')? *$')
 	timeRegex   = re.compile('^\/(fecha|time)(@'+botName+')? *$')
 	sourceRegex = re.compile('^\/(codigo|source)(@'+botName+')? *$')
-
 	btcPriceRegex = re.compile('\/btc([Pp]rice)?(@'+botName+')? *$')
 	
 	list.extend(	[

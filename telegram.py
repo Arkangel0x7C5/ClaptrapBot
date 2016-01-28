@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 import json
-import urllib
+from urllib import request 
+from urllib import parse
 import time
 import logging
 
@@ -14,14 +15,14 @@ class Bot():
 		self.offset = None
 	def getMe(self):
 		url = self.base_url+'/getMe'
-		obj = json.loads(urllib.urlopen(url).read())
+		obj = json.loads(request.urlopen(url).read().decode('utf8'))
 		if obj['ok'] :
 			return obj['result']
 	def getUpdates(self):
 		url = self.base_url+'/getUpdates'
 		if not self.offset is None :
 			url = url+'?offset='+str(self.offset) 
-		obj = json.loads(urllib.urlopen(url).read())
+		obj = json.loads(request.urlopen(url).read().decode('utf8'))
 		if obj['ok'] :
 			return obj['result']
 	def sendMessage(self,chat_id,text):
@@ -30,7 +31,7 @@ class Bot():
 			,'text':text
 			}
 		url = self.base_url+'/sendMessage'
-		urllib.urlopen(url,urllib.urlencode(data))
+		request.urlopen(url,parse.urlencode(data).encode('utf8'))
 		return
 	def startPolling(self,handler):
 		try:
@@ -44,7 +45,8 @@ class Bot():
 					pass
 				time.sleep(1)
 		except KeyboardInterrupt:
-			print "Interrupcion de teclado"
+			print("Interrupcion de teclado")
 		except Exception as e:
 			logging.exception(e)
+			
 		return
