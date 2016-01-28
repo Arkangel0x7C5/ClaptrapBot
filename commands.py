@@ -1,5 +1,5 @@
 import datetime
-from urllib.request import urlopen
+import urllib
 import re
 import conf
 
@@ -16,7 +16,7 @@ def cmdSource():
 	return conf.source
 
 def cmdBtcPrice():
-	r = urlopen(urlbtc + "24hrprice")
+	r = urllib.urlopen(urlbtc + "24hrprice")
 	return r.read()
 
 def init(botName):
