@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #
 import json
-from urllib.request import urlopen 
-from urllib.parse import urlencode
+from urllib import request 
+from urllib import parse
 import time
 import logging
 
@@ -15,14 +15,14 @@ class Bot():
 		self.offset = None
 	def getMe(self):
 		url = self.base_url+'/getMe'
-		obj = json.loads(urlopen(url).read().decode('utf8'))
+		obj = json.loads(request.urlopen(url).read().decode('utf8'))
 		if obj['ok'] :
 			return obj['result']
 	def getUpdates(self):
 		url = self.base_url+'/getUpdates'
 		if not self.offset is None :
 			url = url+'?offset='+str(self.offset) 
-		obj = json.loads(urlopen(url).read().decode('utf8'))
+		obj = json.loads(request.urlopen(url).read().decode('utf8'))
 		if obj['ok'] :
 			return obj['result']
 	def sendMessage(self,chat_id,text):
@@ -31,7 +31,7 @@ class Bot():
 			,'text':text
 			}
 		url = self.base_url+'/sendMessage'
-		urlopen(url,urlencode(data).encode('utf8'))
+		request.urlopen(url,parse.urlencode(data).encode('utf8'))
 		return
 	def startPolling(self,handler):
 		try:
