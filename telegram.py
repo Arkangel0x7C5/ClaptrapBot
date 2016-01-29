@@ -12,6 +12,10 @@ class Bot():
 		self.base_url = 'https://api.telegram.org/bot' + self.token
 		self.bot = None
 		self.offset = None
+		self.logger = logging.getLogger('telegram')
+		
+		urllib3_logger = logging.getLogger('urllib3')
+		urllib3_logger.setLevel(logging.CRITICAL)
 	def getMe(self):
 		url = self.base_url+'/getMe'
 		obj = requests.get(url).json()
@@ -43,11 +47,11 @@ class Bot():
 						if 'message' in update :
 							handler(self,update['message'])
 				except IOError as e:
-					logging.debug(e)
+					self.logger.debug(e)
 				time.sleep(1)
 		except KeyboardInterrupt:
 			#print("Interrupcion de teclado")
 			pass
 		except Exception as e:
-			logging.debug(e)
+			self.logger.debug(e)
 		return

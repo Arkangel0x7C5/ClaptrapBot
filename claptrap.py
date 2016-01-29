@@ -10,23 +10,26 @@ import logging
 import os
 import sys
 
+
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 logging.basicConfig(filename='debug.log',level=logging.DEBUG)
+logger = logging.getLogger('claptrap')
+
 bot = telegram.Bot(conf.botID)
 
 commands.init(bot.getMe()['username'])
 
 
 def handle(bot,msg):
-	logging.debug(json.dumps(msg)+"\n")
+	logger.debug(json.dumps(msg)+"\n")
 	#if not msg.has_key("text") and not msg.has_key("chat"):
 	try:	
 		#logging.debug("test\n")
 		chat_id = msg['chat']['id']
 		text	= msg['text']
 	
-		logging.info("Mensaje recibido: "+ text)
+		logger.info("Mensaje recibido: "+ text)
 	
 		for comando in commands.list:
 			if comando[0].match(text):
