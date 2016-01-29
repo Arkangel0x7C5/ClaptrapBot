@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 #
 import json
-from urllib import request 
-from urllib import parse
 import time
 import logging
+import requests
 
 class Bot():
 	def __init__(self,
@@ -15,14 +14,16 @@ class Bot():
 		self.offset = None
 	def getMe(self):
 		url = self.base_url+'/getMe'
-		obj = json.loads(request.urlopen(url).read().decode('utf8'))
+		obj = requests.get(url).json()
+#		obj = json.loads(request.urlopen(url).read().decode('utf8'))
 		if obj['ok'] :
 			return obj['result']
 	def getUpdates(self):
 		url = self.base_url+'/getUpdates'
+		params = {}
 		if not self.offset is None :
-			url = url+'?offset='+str(self.offset) 
-		obj = json.loads(request.urlopen(url).read().decode('utf8'))
+			params = {'offset':self.offset}
+		obj = requests.get(url,params=params).json()
 		if obj['ok'] :
 			return obj['result']
 	def sendMessage(self,chat_id,text):
@@ -31,7 +32,7 @@ class Bot():
 			,'text':text
 			}
 		url = self.base_url+'/sendMessage'
-		request.urlopen(url,parse.urlencode(data).encode('utf8'))
+		requests.post(url,data = data)
 		return
 	def startPolling(self,handler):
 		try:

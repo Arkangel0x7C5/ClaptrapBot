@@ -1,5 +1,6 @@
 import datetime
-from urllib import request
+#from urllib import request
+import requests
 import re
 import conf
 
@@ -16,8 +17,8 @@ def cmdSource():
 	return conf.source
 
 def cmdBtcPrice():
-	r = request.urlopen(urlbtc + "24hrprice")
-	return r.read()
+	r = requests.get(urlbtc + "24hrprice")
+	return r.text
 
 def init(botName):
 	holaRegex   = re.compile('^(hola|\/(hola|hello))(@'+botName+')? *$')
