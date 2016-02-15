@@ -13,7 +13,12 @@ import sys
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
-logging.basicConfig(filename='debug.log',level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
+handler = logging.FileHandler('debug.log', 'w', 'utf-8')
+
+root_logger= logging.getLogger()
+root_logger.addHandler(handler)
+
 logger = logging.getLogger('claptrap')
 
 bot = telegram.Bot(conf.botID)
@@ -40,7 +45,9 @@ def handle(bot,msg):
 		return
 
 #bot.notifyOnMessage(callback=handle, run_forever=True)
-bot.startPolling(handle)
-
+try:
+	bot.startPolling(handle)
+except e:
+	logger.error(e)
 #while(1):
 #	time.sleep(10)

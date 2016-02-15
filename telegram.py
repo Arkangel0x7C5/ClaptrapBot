@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#
+
 import json
 import time
 import logging
@@ -12,6 +12,7 @@ class Bot():
 		self.base_url = 'https://api.telegram.org/bot' + self.token
 		self.bot = None
 		self.offset = None
+#		self.headers = {'content-type':'application/json; charset=utf-8'}
 		self.logger = logging.getLogger('telegram')
 		
 		urllib3_logger = logging.getLogger('urllib3')
@@ -27,9 +28,13 @@ class Bot():
 		params = {}
 		if not self.offset is None :
 			params = {'offset':self.offset}
-		obj = requests.get(url,params=params).json()
-		if obj['ok'] :
-			return obj['result']
+		try:
+			obj = requests.get(url,params=params).json()
+			if obj['ok']:
+				return obj['result']
+		except Exception:
+			pass
+		return []
 	def sendMessage(self,chat_id,text):
 		data = {
 			'chat_id':chat_id
@@ -47,11 +52,11 @@ class Bot():
 						if 'message' in update :
 							handler(self,update['message'])
 				except IOError as e:
-					self.logger.debug(e)
+					self.logger.exception(e)
 				time.sleep(1)
 		except KeyboardInterrupt:
 			#print("Interrupcion de teclado")
 			pass
 		except Exception as e:
-			self.logger.debug(e)
+			self.logger.exception(e)
 		return
