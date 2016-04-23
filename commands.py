@@ -5,6 +5,7 @@ import re
 import conf
 import json
 import random
+import codecs
 
 urlbtc = 'https://blockchain.info/es/q/'
 
@@ -15,7 +16,7 @@ def cmdHola():
 	return frases['frases'][random.randint(0,len(frases['frases'])-1)]
 def cmdReloadFrases():
 	try:
-		data_file = open("frases.json",'r').read()
+		data_file = codecs.open("frases.json",'r', 'UTF-8').read()
 		frases_tmp = json.loads(data_file,'utf8')
 		frases.pop('frases',None)
 		frases.update(frases_tmp)
