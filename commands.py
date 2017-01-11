@@ -7,7 +7,7 @@ import json
 import random
 import codecs
 
-urlbtc = 'https://blockchain.info/es/q/'
+urlbtc = 'https://www.bitstamp.net/api/v2/ticker/'
 
 frases = {'frases':["no tengo frases, que planeas que diga?"]}
 list = []
@@ -29,8 +29,10 @@ def cmdSource():
 	return conf.source
 
 def cmdBtcPrice():
-	r = requests.get(urlbtc + "24hrprice")
-	return r.text
+	btcusd = json.loads(requests.get(urlbtc + "btcusd/").text,'utf8')
+	btceur = json.loads(requests.get(urlbtc + "btceur/").text,'utf8')
+	eurusd = json.loads(requests.get(urlbtc + "eurusd/").text,'utf8')
+	return "btc/usd "+btcusd["last"]+"\n"+"btc/eur "+btceur["last"]+"\n"+"btc/eur "+eurusd["last"]+"\n"
 
 def init(botName):
 	holaRegex   = re.compile('^(.* )?(\/?(H|h)(ola+|ello|i))[.,!]?(@'+botName+')?( .*)?$')
