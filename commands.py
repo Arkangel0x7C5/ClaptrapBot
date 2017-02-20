@@ -32,7 +32,7 @@ def cmdBtcPrice():
 	btcusd = json.loads(requests.get(urlbtc + "btcusd/").text,'utf8')
 	btceur = json.loads(requests.get(urlbtc + "btceur/").text,'utf8')
 	eurusd = json.loads(requests.get(urlbtc + "eurusd/").text,'utf8')
-	return "btc/usd "+btcusd["last"]+"\n"+"btc/eur "+btceur["last"]+"\n"+"btc/eur "+eurusd["last"]+"\n"
+	return "btc/usd "+btcusd["last"]+"\n"+"btc/eur "+btceur["last"]+"\n"+"usd/eur "+eurusd["last"]+"\n"
 
 def init(botName):
 	holaRegex   = re.compile('^(.* )?(\/?(H|h)(ola+|ello|i))[.,!]?(@'+botName+')?( .*)?$')
