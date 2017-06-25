@@ -38,7 +38,7 @@ def handle(bot,msg):
 	
 		for comando in commands.list:
 			if comando[0].match(text):
-				bot.sendMessage(chat_id,comando[1]())
+				bot.sendMessage(chat_id,comando[1](comando[0].search(text).groups()))
 				return
 		#bot.sendMessage(chat_id,"test")
 	except KeyError:
